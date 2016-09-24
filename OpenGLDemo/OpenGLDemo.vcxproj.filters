@@ -48,6 +48,21 @@
     <ClInclude Include="popback1.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ogldev_pipeline.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_keys.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_atb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AntTweakBar.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -59,14 +74,14 @@
     <ClCompile Include="ogldev_util.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ogldev_math_3d.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogldev_pipeline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Debug\shader.fs">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="Debug\shader.vs">
-      <Filter>资源文件</Filter>
-    </None>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -27,23 +27,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <math.h>
 #endif
 
-//#include <vector3.h>
-//#include "matrix3x3.h"
+#include "vector3.h"
+#include "matrix3x3.h"
 #include "matrix4x4.h"
 
-#include "ogldev_util.h"
+#include "ogldev_util.h" // 自定义工具函数
 
 #define ToRadian(x) (float)(((x) * M_PI / 180.0f))
 #define ToDegree(x) (float)(((x) * 180.0f / M_PI))
 
 float RandomFloat();
 
+// 整型2维向量
 struct Vector2i
 {
 	int x;
 	int y;
 };
 
+// 浮点型2维向量
 struct Vector2f
 {
 	float x;
@@ -60,7 +62,7 @@ struct Vector2f
 	}
 };
 
-
+// 浮点型3维向量
 struct Vector3f
 {
 	float x;
@@ -133,7 +135,7 @@ struct Vector3f
 	}
 };
 
-
+// 浮点型4维向量
 struct Vector4f
 {
 	float x;
@@ -209,7 +211,7 @@ inline Vector4f operator/(const Vector4f& l, float f)
 	return Ret;
 }
 
-
+// 透视投影配置信息
 struct PersProjInfo
 {
 	float FOV;
@@ -219,7 +221,7 @@ struct PersProjInfo
 	float zFar;
 };
 
-
+// 正交投影配置信息
 struct OrthoProjInfo
 {
 	float r;        // right
@@ -230,6 +232,7 @@ struct OrthoProjInfo
 	float f;        // z far
 };
 
+// 四元数
 struct Quaternion
 {
 	float x, y, z, w;
@@ -247,13 +250,14 @@ struct Quaternion
 class Matrix4f
 {
 public:
+	//存储4维矩阵的数据二维数组
 	float m[4][4];
 
 	Matrix4f()
 	{
 	}
 
-	// constructor from Assimp matrix
+	// 4维矩阵参数构造
 	Matrix4f(const aiMatrix4x4& AssimpMatrix)
 	{
 		m[0][0] = AssimpMatrix.a1; m[0][1] = AssimpMatrix.a2; m[0][2] = AssimpMatrix.a3; m[0][3] = AssimpMatrix.a4;
@@ -261,7 +265,8 @@ public:
 		m[2][0] = AssimpMatrix.c1; m[2][1] = AssimpMatrix.c2; m[2][2] = AssimpMatrix.c3; m[2][3] = AssimpMatrix.c4;
 		m[3][0] = AssimpMatrix.d1; m[3][1] = AssimpMatrix.d2; m[3][2] = AssimpMatrix.d3; m[3][3] = AssimpMatrix.d4;
 	}
-	/*
+	
+	// 3维矩阵参数构造
 	Matrix4f(const aiMatrix3x3& AssimpMatrix)
 	{
 		m[0][0] = AssimpMatrix.a1; m[0][1] = AssimpMatrix.a2; m[0][2] = AssimpMatrix.a3; m[0][3] = 0.0f;
@@ -269,7 +274,8 @@ public:
 		m[2][0] = AssimpMatrix.c1; m[2][1] = AssimpMatrix.c2; m[2][2] = AssimpMatrix.c3; m[2][3] = 0.0f;
 		m[3][0] = 0.0f; m[3][1] = 0.0f; m[3][2] = 0.0f; m[3][3] = 1.0f;
 	}
-	*/
+	
+	// 具体参数构造
 	Matrix4f(float a00, float a01, float a02, float a03,
 		float a10, float a11, float a12, float a13,
 		float a20, float a21, float a22, float a23,
@@ -281,11 +287,13 @@ public:
 		m[3][0] = a30; m[3][1] = a31; m[3][2] = a32; m[3][3] = a33;
 	}
 
+	// 设置成0矩阵
 	void SetZero()
 	{
 		ZERO_MEM(m);
 	}
 
+	// 4维矩阵转置
 	Matrix4f Transpose() const
 	{
 		Matrix4f n;
@@ -299,7 +307,7 @@ public:
 		return n;
 	}
 
-
+	// 初始化为单位矩阵
 	inline void InitIdentity()
 	{
 		m[0][0] = 1.0f; m[0][1] = 0.0f; m[0][2] = 0.0f; m[0][3] = 0.0f;
@@ -308,6 +316,7 @@ public:
 		m[3][0] = 0.0f; m[3][1] = 0.0f; m[3][2] = 0.0f; m[3][3] = 1.0f;
 	}
 
+	// 4维矩阵相乘操作符
 	inline Matrix4f operator*(const Matrix4f& Right) const
 	{
 		Matrix4f Ret;
@@ -324,6 +333,7 @@ public:
 		return Ret;
 	}
 
+	// 4维向量和4维向量相称操作符
 	Vector4f operator*(const Vector4f& v) const
 	{
 		Vector4f r;
@@ -336,11 +346,13 @@ public:
 		return r;
 	}
 
+	//
 	operator const float*() const
 	{
 		return &(m[0][0]);
 	}
 
+	// 打印4维矩阵
 	void Print() const
 	{
 		for (int i = 0; i < 4; i++) {
@@ -348,10 +360,13 @@ public:
 		}
 	}
 
+	// 求行列式的值
 	float Determinant() const;
 
+	//
 	Matrix4f& Inverse();
 
+	// 基本变换，投影变换，正交变换初始化
 	void InitScaleTransform(float ScaleX, float ScaleY, float ScaleZ);
 	void InitRotateTransform(float RotateX, float RotateY, float RotateZ);
 	void InitRotateTransform(const Quaternion& quat);
@@ -361,8 +376,9 @@ public:
 	void InitOrthoProjTransform(const OrthoProjInfo& p);
 };
 
+// 四元数和四元数相乘操作符
 Quaternion operator*(const Quaternion& l, const Quaternion& r);
-
+// 四元数和3维向量相称操作符
 Quaternion operator*(const Quaternion& q, const Vector3f& v);
 
 #endif	/* MATH_3D_H */

@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 #include "ogldev_util.h"
 
+/**
+* 读取文本文件到字符串缓冲区（函数实现）
+*/
 bool ReadFile(const char* pFileName, string& outFile)
 {
 	ifstream f(pFileName);

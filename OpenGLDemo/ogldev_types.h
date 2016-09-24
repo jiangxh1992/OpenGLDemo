@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <unistd.h>
 #endif
 
-typedef unsigned int uint;
-typedef unsigned short ushort;
-typedef unsigned char uchar;
+typedef unsigned int uint;      // 无符号整型
+typedef unsigned short ushort;  // 无符号短整型
+typedef unsigned char uchar;    // 无符号字符型
 
 #endif	/* OGLDEV_TYPES_H */
 

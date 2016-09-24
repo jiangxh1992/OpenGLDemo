@@ -13,14 +13,25 @@
 
 
 // TODO:  在此处引用程序需要的其他头文件
+
+// glew扩展库
 #include <GL/glew.h>
 #pragma comment(lib, "glew32d.lib")
 
+// freeGLUT窗口库
 #include <freeglut.h>
 
+// 自定义3d函数库
 #include "ogldev_math_3d.h"
 
+// 自定义工具函数
 #include "ogldev_util.h"
+
+// 管线类
+#include "ogldev_pipeline.h"
+
+// AntTweakBar.lib
+//#include <AntTweakBar.h>
 
 #include <iostream>
 #include <fstream>

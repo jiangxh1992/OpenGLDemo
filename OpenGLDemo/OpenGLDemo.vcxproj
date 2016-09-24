@@ -79,9 +79,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="matrix3x3.h" />
     <ClInclude Include="matrix4x4.h" />
+    <ClInclude Include="ogldev_atb.h" />
+    <ClInclude Include="ogldev_camera.h" />
+    <ClInclude Include="ogldev_keys.h" />
     <ClInclude Include="ogldev_math_3d.h" />
+    <ClInclude Include="ogldev_pipeline.h" />
     <ClInclude Include="ogldev_types.h" />
     <ClInclude Include="ogldev_util.h" />
     <ClInclude Include="popback1.h" />
@@ -91,6 +96,8 @@
     <ClInclude Include="vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ogldev_math_3d.cpp" />
+    <ClCompile Include="ogldev_pipeline.cpp" />
     <ClCompile Include="ogldev_util.cpp" />
     <ClCompile Include="OpenGLDemo.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -100,8 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Debug\shader.fs" />
-    <None Include="Debug\shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,15 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef WIN32
 #include <unistd.h>
 #endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
 #include <string.h>
 #include <assert.h>
-#include "ogldev_types.h"
+
+#include "ogldev_types.h"   // 自定义类型名
 
 using namespace std;
 
+/**
+ * 读取文本文件到字符串缓冲区（函数声明）
+ */
 bool ReadFile(const char* fileName, string& outFile);
 
 void OgldevError(const char* pFileName, uint line, const char* pError);
