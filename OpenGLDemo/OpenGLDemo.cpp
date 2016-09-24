@@ -15,16 +15,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Tutorial 11 - Concatenating transformation2
+Tutorial 12 - Perspective Projection
 */
 
-#include <string.h>
+
 #include "stdafx.h"
 
+#define WINDOW_WIDTH 480
+#define WINDOW_HEIGHT 320
 
 GLuint VBO;
 GLuint IBO;
 GLuint gWorldLocation;
+PersProjInfo gPersProjInfo;
 
 const char* pVSFileName = "shader.vs";
 const char* pFSFileName = "shader.fs";
@@ -36,14 +39,14 @@ static void RenderSceneCB()
 
 	static float Scale = 0.0f;
 
-	Scale += 0.001f;
+	Scale += 0.01f;
 
 	Pipeline p;
-	p.Scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
-	p.WorldPos(sinf(Scale), 0.0f, 0.0f);
-	p.Rotate(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+	p.Rotate(0.0f, Scale, 0.0f);
+	p.WorldPos(0.0f, 0.0f, 5.0f);
+	p.SetPerspectiveProj(gPersProjInfo);
 
-	glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetWorldTrans());
+	glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetWPTrans());
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -67,9 +70,9 @@ static void InitializeGlutCallbacks()
 static void CreateVertexBuffer()
 {
 	Vector3f Vertices[4];
-	Vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
-	Vertices[1] = Vector3f(0.0f, -1.0f, 1.0f);
-	Vertices[2] = Vector3f(1.0f, -1.0f, 0.0f);
+	Vertices[0] = Vector3f(-1.0f, -1.0f, 0.5773f);
+	Vertices[1] = Vector3f(0.0f, -1.0f, -1.15475f);
+	Vertices[2] = Vector3f(1.0f, -1.0f, 0.5773f);
 	Vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
 
 	glGenBuffers(1, &VBO);
@@ -167,9 +170,9 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(480, 320);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Tutorial 11");
+	glutCreateWindow("Tutorial 12");
 
 	InitializeGlutCallbacks();
 
@@ -180,14 +183,18 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	printf("GL version: %s\n", glGetString(GL_VERSION));
-
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	CreateVertexBuffer();
 	CreateIndexBuffer();
 
 	CompileShaders();
+
+	gPersProjInfo.FOV = 30.0f;
+	gPersProjInfo.Height = WINDOW_HEIGHT;
+	gPersProjInfo.Width = WINDOW_WIDTH;
+	gPersProjInfo.zNear = 1.0f;
+	gPersProjInfo.zFar = 100.0f;
 
 	glutMainLoop();
 
