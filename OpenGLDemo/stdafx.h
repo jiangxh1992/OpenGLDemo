@@ -16,7 +16,7 @@
 
 // glewÀ©Õ¹¿â
 #include <GL/glew.h>
-#pragma comment(lib, "glew32d.lib")
+//#pragma comment(lib, "glew32d.lib")
 
 // freeGLUT´°¿Ú¿â
 #include <freeglut.h>

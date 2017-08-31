@@ -79,7 +79,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="matrix3x3.h" />
     <ClInclude Include="matrix4x4.h" />
     <ClInclude Include="ogldev_atb.h" />
