@@ -41,6 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>.\opengl\freeglut3\include\GL;.\opengl\glew-2.1.0\include\GL;.\opengl\AntTweakBar\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\opengl\freeglut3\lib;.\opengl\glew-2.1.0\lib;.\opengl\AntTweakBar\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

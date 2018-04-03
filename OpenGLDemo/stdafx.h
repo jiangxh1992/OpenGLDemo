@@ -9,14 +9,14 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+// #include "stdafx.h"
 
 
 // TODO:  在此处引用程序需要的其他头文件
 
 // glew扩展库
-#include <GL/glew.h>
-//#pragma comment(lib, "glew32d.lib")
+#include <gl/glew.h>
+#pragma comment(lib, "glew32.lib")
 
 // freeGLUT窗口库
 #include <freeglut.h>
