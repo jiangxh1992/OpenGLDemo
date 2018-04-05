@@ -9,6 +9,12 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#ifdef WIN32
+#include <Windows.h>
+#endif
 // #include "stdafx.h"
 
 
@@ -17,24 +23,17 @@
 // glew扩展库
 #include <gl/glew.h>
 #pragma comment(lib, "glew32.lib")
-
 // freeGLUT窗口库
 #include <freeglut.h>
-
 // 自定义3d函数库
 #include "ogldev_math_3d.h"
-
 // 自定义工具函数
 #include "ogldev_util.h"
-
 // 管线类
 #include "ogldev_pipeline.h"
-
 // AntTweakBar.lib
-//#include <AntTweakBar.h>
-
-#include <iostream>
-#include <fstream>
-#include <Windows.h>
+#include <AntTweakBar.h>
+#include "ogldev_glut_backend.h"
+#include "ogldev_camera.h"
 
 //#include <sys/time.h>

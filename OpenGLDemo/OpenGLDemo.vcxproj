@@ -81,11 +81,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glut_backend.h" />
     <ClInclude Include="matrix3x3.h" />
     <ClInclude Include="matrix4x4.h" />
+    <ClInclude Include="ogldev.h" />
+    <ClInclude Include="ogldev_app.h" />
     <ClInclude Include="ogldev_atb.h" />
+    <ClInclude Include="ogldev_backend.h" />
+    <ClInclude Include="ogldev_callbacks.h" />
     <ClInclude Include="ogldev_camera.h" />
+    <ClInclude Include="ogldev_glut_backend.h" />
     <ClInclude Include="ogldev_keys.h" />
+    <ClInclude Include="ogldev_lights_common.h" />
     <ClInclude Include="ogldev_math_3d.h" />
     <ClInclude Include="ogldev_pipeline.h" />
     <ClInclude Include="ogldev_types.h" />
@@ -97,6 +104,10 @@
     <ClInclude Include="vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="glut_backend.cpp" />
+    <ClCompile Include="ogldev_atb.cpp" />
+    <ClCompile Include="ogldev_backend.cpp" />
     <ClCompile Include="ogldev_math_3d.cpp" />
     <ClCompile Include="ogldev_pipeline.cpp" />
     <ClCompile Include="ogldev_util.cpp" />

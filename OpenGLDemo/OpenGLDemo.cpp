@@ -15,18 +15,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Tutorial 11 - Concatenating transformation2
+Tutorial 14 - Camera Control - Part 1
 */
 
 #include "stdafx.h"
 
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
 GLuint VBO;
 GLuint IBO;
-GLuint gWorldLocation;
+GLuint gWVPLocation;
+
+Camera* pGameCamera = NULL;
+PersProjInfo gPersProjInfo;
 
 const char* pVSFileName = "shader.vs";
 const char* pFSFileName = "shader.fs";
-
 
 static void RenderSceneCB()
 {
@@ -34,14 +39,15 @@ static void RenderSceneCB()
 
 	static float Scale = 0.0f;
 
-	Scale += 0.001f;
+	Scale += 0.1f;
 
 	Pipeline p;
-	p.Scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
-	p.WorldPos(sinf(Scale), 0.0f, 0.0f);
-	p.Rotate(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+	p.Rotate(0.0f, Scale, 0.0f);
+	p.WorldPos(0.0f, 0.0f, 3.0f);
+	p.SetCamera(*pGameCamera);
+	p.SetPerspectiveProj(gPersProjInfo);
 
-	glUniformMatrix4fv(gWorldLocation, 1, GL_TRUE, (const GLfloat*)p.GetWorldTrans());
+	glUniformMatrix4fv(gWVPLocation, 1, GL_TRUE, (const GLfloat*)p.GetWVPTrans());
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -56,18 +62,31 @@ static void RenderSceneCB()
 }
 
 
+static void SpecialKeyboardCB(int Key, int x, int y)
+{
+	OGLDEV_KEY OgldevKey = GLUTKeyToOGLDEVKey(Key);
+	pGameCamera->OnKeyboard(OgldevKey);
+}
+static void OnMouse(int x, int y)
+{
+	pGameCamera->OnMouse(x,y);
+}
+
+
 static void InitializeGlutCallbacks()
 {
 	glutDisplayFunc(RenderSceneCB);
 	glutIdleFunc(RenderSceneCB);
+	glutSpecialFunc(SpecialKeyboardCB);
+	glutMotionFunc(OnMouse);
 }
 
 static void CreateVertexBuffer()
 {
 	Vector3f Vertices[4];
-	Vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
-	Vertices[1] = Vector3f(0.0f, -1.0f, 1.0f);
-	Vertices[2] = Vector3f(1.0f, -1.0f, 0.0f);
+	Vertices[0] = Vector3f(-1.0f, -1.0f, 0.5773f);
+	Vertices[1] = Vector3f(0.0f, -1.0f, -1.15475f);
+	Vertices[2] = Vector3f(1.0f, -1.0f, 0.5773f);
 	Vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
 
 	glGenBuffers(1, &VBO);
@@ -157,19 +176,21 @@ static void CompileShaders()
 
 	glUseProgram(ShaderProgram);
 
-	gWorldLocation = glGetUniformLocation(ShaderProgram, "gWorld");
-	assert(gWorldLocation != 0xFFFFFFFF);
+	gWVPLocation = glGetUniformLocation(ShaderProgram, "gWVP");
+	assert(gWVPLocation != 0xFFFFFFFF);
 }
 
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(1024, 768);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Tutorial 11");
+	glutCreateWindow("Tutorial 14");
 
 	InitializeGlutCallbacks();
+
+	pGameCamera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Must be done after glut is initialized!
 	GLenum res = glewInit();
@@ -178,14 +199,18 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	printf("GL version: %s\n", glGetString(GL_VERSION));
-
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	CreateVertexBuffer();
 	CreateIndexBuffer();
 
 	CompileShaders();
+
+	gPersProjInfo.FOV = 60.0f;
+	gPersProjInfo.Height = WINDOW_HEIGHT;
+	gPersProjInfo.Width = WINDOW_WIDTH;
+	gPersProjInfo.zNear = 1.0f;
+	gPersProjInfo.zFar = 100.0f;
 
 	glutMainLoop();
 

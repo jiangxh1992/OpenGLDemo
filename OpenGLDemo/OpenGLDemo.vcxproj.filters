@@ -60,6 +60,27 @@
     <ClInclude Include="ogldev_atb.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ogldev_lights_common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_backend.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_callbacks.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ogldev_glut_backend.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glut_backend.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +96,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ogldev_pipeline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogldev_atb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ogldev_backend.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="glut_backend.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
